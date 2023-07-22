@@ -163,6 +163,12 @@ class Queue:
         """
         return self.list.pop()
 
+    def has(self,item):
+        for i in self.list:
+            if i == item:
+                return True
+        return False
+
     def isEmpty(self):
         "Returns true if the queue is empty"
         return len(self.list) == 0
