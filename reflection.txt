@@ -11,4 +11,8 @@ and a list of directions to that node. That way, I could still "jump" to nodes w
 turned out to be a dead end, and add the directions to the next node so that only the path 
 to the final goal was returned, rather than all the paths to each dead end in the maze. 
 
-Implementing BFS was much easier, since all I had to do was use a Queue instead of a Stack. 
+Creating BFS was much easier, since all I had to do was use a Queue instead of a Stack.
+
+After making both BFS and DFS, I realized that Benedict had created a general_search because
+he could just pass in either a queue or a stack depending on if he wanted to do a BFS or DFS,
+which reduced the total lines of code in the file.
