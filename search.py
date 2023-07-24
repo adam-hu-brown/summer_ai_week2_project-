@@ -72,63 +72,33 @@ def tinyMazeSearch(problem):
     w = Directions.WEST
     return  [s, s, w, s, w, w, s, w]
 
+def general_search(problem, frontier):
+    frontier.push([problem.getStartState(), []])
+    visited = util.Queue()
+    goal_found = False
+    while not goal_found:
+        node = frontier.pop()
+        if problem.isGoalState(node[0]):
+            goal_found = True
+        visited.push(node[0])
+        for child in problem.getSuccessors(node[0]):
+            if not(visited.has(child[0])):
+                frontier.push([child[0], node[1] + [child[1]]])
+    return node[1]
+
 def depthFirstSearch(problem: SearchProblem):
-    """
-    Search the deepest nodes in the search tree first.
-
-    Your search algorithm needs to return a list of actions that reaches the
-    goal. Make sure to implement a graph search algorithm.
-
-    To get started, you might want to try some of these simple commands to
-    understand the search problem that is being passed in:
-    """
-    """
-    print("Start:", problem.getStartState())
-    print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
-    print("Start's successors:", problem.getSuccessors(problem.getStartState()))
-    """
     "*** YOUR CODE HERE ***"
-    result = dfs_search(problem)
+    frontier = util.Stack()
+    result = general_search(problem,frontier)
     print("DFS Result is:", result)
     return result
 
-def dfs_search(problem):
-    frontier = util.Stack()
-    frontier.push([problem.getStartState(), []])
-    visited = util.Queue()
-    goal_found = False
-    while not goal_found:
-        node = frontier.pop()
-        if problem.isGoalState(node[0]):
-            goal_found = True
-        visited.push(node[0])
-        for child in problem.getSuccessors(node[0]):
-            if not(visited.has(child[0])):
-                frontier.push([child[0], node[1] + [child[1]]])
-    return node[1]
-    # This should be the result.... ['West', 'West', 'West', 'West', 'South', 'South', 'East', 'South', 'South', 'West']
-
 def breadthFirstSearch(problem: SearchProblem):
-    """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    result = bfs_search(problem)
+    frontier = util.Queue()
+    result = general_search(problem,frontier)
     print("BFS Result is:", result)
     return result
-
-def bfs_search(problem):
-    frontier = util.Queue()
-    frontier.push([problem.getStartState(), []])
-    visited = util.Queue()
-    goal_found = False
-    while not goal_found:
-        node = frontier.pop()
-        if problem.isGoalState(node[0]):
-            goal_found = True
-        visited.push(node[0])
-        for child in problem.getSuccessors(node[0]):
-            if not(visited.has(child[0])):
-                frontier.push([child[0], node[1] + [child[1]]])
-    return node[1]
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
