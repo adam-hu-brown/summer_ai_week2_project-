@@ -73,18 +73,18 @@ def tinyMazeSearch(problem):
     return  [s, s, w, s, w, w, s, w]
 
 def general_search(problem, frontier):
-    frontier.push([problem.getStartState(), []])
+    frontier.push((problem.getStartState(), []))
     visited = util.Queue()
     goal_found = False
     while not goal_found:
-        node = frontier.pop()
-        if problem.isGoalState(node[0]):
+        node, path = frontier.pop()
+        if problem.isGoalState(node):
             goal_found = True
-        visited.push(node[0])
-        for child in problem.getSuccessors(node[0]):
+        visited.push(node)
+        for child in problem.getSuccessors(node):
             if not(visited.has(child[0])):
-                frontier.push([child[0], node[1] + [child[1]]])
-    return node[1]
+                frontier.push((child[0], path + [child[1]]))
+    return path
 
 def depthFirstSearch(problem: SearchProblem):
     "*** YOUR CODE HERE ***"
